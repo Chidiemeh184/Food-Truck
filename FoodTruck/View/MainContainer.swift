@@ -113,13 +113,13 @@ class MainContainer: UIViewController {
     }
     
     private func showList() {
-        switchButton.setTitle("Map", for: .normal)
+        switchButton.setTitle("List", for: .normal)
         setView(view: mapView.view, hidden: false)
         setView(view: listView.view, hidden: true)
     }
     
     private func showMap() {
-        switchButton.setTitle("List", for: .normal)
+        switchButton.setTitle("Map", for: .normal)
         setView(view: mapView.view, hidden: true)
         setView(view: listView.view, hidden: false)
     }
