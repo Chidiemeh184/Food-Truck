@@ -101,6 +101,11 @@ class MainContainer: UIViewController {
         self.add(childViewController: mapView, to: mainVisibleArea)
         self.add(childViewController: listView, to: mainVisibleArea)
         handleSwitch()
+        
+        if let mapDelegate = (mapView as? MapListController)?.delegate {
+            (listView as? TrucksListController)?.setDelegate(delegate: mapDelegate)
+            
+        }
     }
     
     @objc func handleSwitch() {

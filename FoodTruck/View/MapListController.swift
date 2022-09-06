@@ -9,11 +9,17 @@ import UIKit
 import MapKit
 import Combine
 
+protocol ItemSelectedDelegate: AnyObject {
+    func didSelect(item: FoodTruck)
+}
+
 class MapListController: UIViewController {
     //MARK: - Class Properties
     var trucks: [FoodTruck] = []
     var viewModel: FoodTrucksViewModel?
     private var cancellableBag = Set<AnyCancellable>()
+    
+    weak var delegate: ItemSelectedDelegate? = nil
     
     //MARK: - UI Properties
     let mapList: MKMapView = {
@@ -96,6 +102,10 @@ class MapListController: UIViewController {
             defaultMessage.topAnchor.constraint(equalTo: mapList.bottomAnchor, constant: 30),
             defaultMessage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30)
         ])
+    }
+    
+    public func takeOneFoodTruck(truck: FoodTruck) {
+        print("Map Truck select:\(truck)")
     }
     
     private func addAnnotations(places: [MKPointAnnotation]) {

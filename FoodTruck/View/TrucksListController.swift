@@ -15,6 +15,8 @@ class TrucksListController: UIViewController {
     var trucks: [FoodTruck] = []
     var isLoading = false
     
+    weak var delegate: ItemSelectedDelegate? = nil
+    
     //MARK: - UI Properties
     let tableView: UITableView = {
         let table = UITableView()
@@ -27,6 +29,10 @@ class TrucksListController: UIViewController {
     public init(viewModel: FoodTrucksViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
+    }
+    
+    public func setDelegate(delegate: ItemSelectedDelegate) {
+        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -107,6 +113,11 @@ extension TrucksListController: UITableViewDelegate {
         if distanceFromBottom < height && !isLoading {
            fetchTruck()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = trucks[indexPath.row]
+        delegate?.didSelect(item: selectedItem)
     }
 }
 
